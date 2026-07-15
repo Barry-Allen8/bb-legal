@@ -491,9 +491,33 @@ h1, h2, h3 { font-family: var(--heading); line-height: 1.2; }
   cursor: pointer;
 }
 
-.faq-item button span:last-child { color: var(--gold); font-size: 24px; transition: transform var(--transition); }
+.faq-item button span:last-child {
+  color: var(--gold);
+  font-size: 24px;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .faq-item button[aria-expanded="true"] span:last-child { transform: rotate(45deg); }
-.faq-panel { padding: 0 24px 20px; color: var(--muted); }
+
+.faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  padding: 0 24px;
+  color: var(--muted);
+  opacity: 0;
+  transition:
+    grid-template-rows 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 220ms ease,
+    padding-bottom 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-panel.is-open {
+  grid-template-rows: 1fr;
+  padding-bottom: 20px;
+  opacity: 1;
+}
+
+.faq-panel-inner { overflow: hidden; }
 .faq-panel p { margin: 0; }
 
 .contact-layout { align-items: start; }

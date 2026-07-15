@@ -253,10 +253,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const willOpen = button.getAttribute("aria-expanded") !== "true";
       document.querySelectorAll(".faq-item button").forEach((otherButton) => {
         otherButton.setAttribute("aria-expanded", "false");
-        document.getElementById(otherButton.getAttribute("aria-controls")).hidden = true;
+        const otherPanel = document.getElementById(otherButton.getAttribute("aria-controls"));
+        otherPanel.classList.remove("is-open");
+        otherPanel.setAttribute("aria-hidden", "true");
       });
       button.setAttribute("aria-expanded", String(willOpen));
-      panel.hidden = !willOpen;
+      panel.classList.toggle("is-open", willOpen);
+      panel.setAttribute("aria-hidden", String(!willOpen));
     });
   });
 
