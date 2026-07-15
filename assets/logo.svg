@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="240" height="60" fill="none">
+  <!-- Brand Symbol Icon -->
+  <g transform="translate(10, 6)">
+    <!-- Base Shield Backdrop Gradient -->
+    <defs>
+      <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0A1128" />
+        <stop offset="100%" stop-color="#1C2541" />
+      </linearGradient>
+      <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0066FF" />
+        <stop offset="100%" stop-color="#10B981" />
+      </linearGradient>
+      <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+        <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#0066FF" flood-opacity="0.25"/>
+      </filter>
+    </defs>
+    
+    <!-- Shield Outer Shell -->
+    <path d="M24 2 C34 2, 42 7, 44 14 C44 28, 34 40, 24 46 C14 40, 4 28, 4 14 C6 7, 14 2, 24 2 Z" 
+          fill="url(#shieldGrad)" stroke="url(#accentGrad)" stroke-width="2.5" filter="url(#shadow)"/>
+          
+    <!-- Stylized 'K' & Eagle Wing Emblem inside Shield -->
+    <path d="M16 12 V34" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M16 23 L28 12" stroke="url(#accentGrad)" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M20 20 L30 33" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"/>
+    
+    <!-- Legal Star / Security Dot -->
+    <circle cx="24" cy="8" r="2" fill="#10B981" />
+  </g>
+
+  <!-- Brand Typography -->
+  <text x="66" y="32" font-family="'Plus Jakarta Sans', 'Inter', system-ui, sans-serif" font-weight="800" font-size="22" letter-spacing="1.5" fill="#0A1128">
+    KRISNAR
+  </text>
+  <text x="67" y="45" font-family="'Inter', system-ui, sans-serif" font-weight="600" font-size="9.5" letter-spacing="2" fill="#0066FF">
+    LEGAL &amp; MIGRATION ADVISORY
+  </text>
+</svg>
