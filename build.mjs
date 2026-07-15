@@ -33,9 +33,10 @@ function languageMenu(locale, slug) {
 
 function serviceMenu(locale) {
   const ui = UI[locale];
+  const menuServices = SERVICES.filter(({ slug }) => !["dla-pracodawcow", "mos"].includes(slug)).slice(0, 8);
   return `<details class="nav-services">
     <summary>${escapeHtml(ui.services)}</summary>
-    <div class="service-menu">${SERVICES.slice(0, 8).map((service) => link(href(locale, service.slug), titleFor(service, locale))).join("")}</div>
+    <div class="service-menu">${menuServices.map((service) => link(href(locale, service.slug), titleFor(service, locale))).join("")}</div>
   </details>`;
 }
 
@@ -46,7 +47,6 @@ function header(locale, slug = "", active = "") {
     ["employers", href(locale, "dla-pracodawcow"), ui.employers],
     ["mos", href(locale, "mos"), "MOS"],
     ["guides", href(locale, "poradniki"), ui.guides],
-    ["about", href(locale, "o-nas"), ui.about],
     ["faq", href(locale, "faq"), ui.faq],
     ["contact", href(locale, "kontakt"), ui.contact]
   ];
@@ -68,7 +68,7 @@ function footer(locale) {
   return `<footer class="site-footer"><div class="container footer-grid">
     <div class="footer-brand"><img src="/assets/logo.svg" width="230" height="50" alt="${siteNameHtml}"><p>${escapeHtml(ui.footerLead)}</p><address>${link(`tel:${SITE.phoneHref}`, SITE.phone)}${link(`mailto:${SITE.email}`, SITE.email)}<span>${SITE.address}</span></address></div>
     <div><h2>${escapeHtml(ui.sitemap)}</h2><nav class="footer-links" aria-label="${escapeHtml(ui.sitemap)}">${serviceLinks}${link(href(locale, "dla-pracodawcow"), ui.employers)}${link(href(locale, "mos"), "MOS")}${link(href(locale, "karta-cukr"), titleFor(SERVICES.find(({ slug }) => slug === "karta-cukr"), locale))}</nav></div>
-    <div><h2>${escapeHtml(ui.legal)}</h2><nav class="footer-links">${link(href(locale, "poradniki"), ui.guides)}${link(href(locale, "o-nas"), ui.about)}${link(href(locale, "faq"), ui.faq)}${link(href(locale, "kontakt"), ui.contact)}${link(href(locale, "polityka-prywatnosci"), ui.privacy)}${link(href(locale, "regulamin"), ui.terms)}${link(href(locale, "cookies"), ui.cookies)}</nav></div>
+    <div><h2>${escapeHtml(ui.legal)}</h2><nav class="footer-links">${link(href(locale, "poradniki"), ui.guides)}${link(href(locale, "faq"), ui.faq)}${link(href(locale, "kontakt"), ui.contact)}${link(href(locale, "polityka-prywatnosci"), ui.privacy)}${link(href(locale, "regulamin"), ui.terms)}${link(href(locale, "cookies"), ui.cookies)}</nav></div>
     <p class="footer-bottom">© 2026 ${siteNameHtml} · ${escapeHtml(ui.updated)}: ${SITE.updated}</p>
   </div></footer>`;
 }
@@ -166,10 +166,13 @@ function contactForm(locale) {
 function homePage(locale) {
   const ui = UI[locale];
   const featured = SERVICES.slice(0, 6);
+  const temporaryService = SERVICES.find(({ slug }) => slug === "pobyt-czasowy-i-praca");
+  const residentService = SERVICES.find(({ slug }) => slug === "rezydent-dlugoterminowy-ue");
+  const appealService = SERVICES.find(({ slug }) => slug === "odwolanie-od-decyzji");
   const homeFaq = faqData(locale, SERVICES[0]).slice(0, 4);
   const schemaFaq = { "@type": "FAQPage", mainEntity: homeFaq.map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })) };
   const main = `<section class="hero-wrapper"><div class="container hero-layout"><div><p class="eyebrow">${escapeHtml(ui.heroTag)}</p><h1 class="hero-main-title">${escapeHtml(ui.heroTitle)}<strong>${escapeHtml(ui.heroAccent)}</strong></h1><p class="hero-lead-text">${escapeHtml(ui.heroText)}</p><div class="hero-buttons">${link(href(locale, "kontakt"), ui.consult, "btn-primary")}${link("#services", ui.seeServices, "btn-secondary")}</div><ul class="benefit-list">${ui.benefits.map((benefit) => `<li>${escapeHtml(benefit)}</li>`).join("")}</ul></div>
-    <aside class="qualification-card"><p class="eyebrow">${escapeHtml(ui.checkTag)}</p><h2>${escapeHtml(ui.checkTitle)}</h2><label for="calc-goal">${escapeHtml(ui.matter)}</label><select id="calc-goal"><option value="temporary">${escapeHtml(titleFor(SERVICES[1], locale))}</option><option value="resident">${escapeHtml(titleFor(SERVICES[3], locale))}</option><option value="work">${escapeHtml(titleFor(SERVICES[7], locale))}</option><option value="appeal">${escapeHtml(titleFor(SERVICES[12], locale))}</option></select><label for="calc-years">${escapeHtml(ui.stayYears)}: <output id="calc-years-value">3</output></label><input id="calc-years" type="range" min="0" max="10" value="3"><label class="check-row"><input id="calc-b1" type="checkbox"><span>${escapeHtml(ui.b1)}</span></label><div class="qualification-result"><strong>${escapeHtml(ui.result)}</strong><span id="qualification-result"></span></div><small>${escapeHtml(ui.checkDisclaimer)}</small></aside></div></section>
+    <aside class="qualification-card"><p class="eyebrow">${escapeHtml(ui.checkTag)}</p><h2>${escapeHtml(ui.checkTitle)}</h2><label for="calc-goal">${escapeHtml(ui.matter)}</label><select id="calc-goal"><option value="temporary">${escapeHtml(titleFor(temporaryService, locale))}</option><option value="resident">${escapeHtml(titleFor(residentService, locale))}</option><option value="appeal">${escapeHtml(titleFor(appealService, locale))}</option></select><label for="calc-years">${escapeHtml(ui.stayYears)}: <output id="calc-years-value">3</output></label><input id="calc-years" type="range" min="0" max="10" value="3"><label class="check-row"><input id="calc-b1" type="checkbox"><span>${escapeHtml(ui.b1)}</span></label><div class="qualification-result"><strong>${escapeHtml(ui.result)}</strong><span id="qualification-result"></span></div><small>${escapeHtml(ui.checkDisclaimer)}</small></aside></div></section>
     <section class="section-padding" id="services"><div class="container"><header class="section-header-center"><p class="eyebrow">${escapeHtml(ui.sectionServices)}</p><h2>${escapeHtml(ui.servicesTitle)}</h2><p>${escapeHtml(ui.servicesLead)}</p></header><div class="services-grid">${featured.map((service, index) => `<article class="service-card"><span class="card-number">${String(index + 1).padStart(2, "0")}</span><h3>${escapeHtml(titleFor(service, locale))}</h3><p>${escapeHtml(service.summary[locale])}</p>${link(href(locale, service.slug), ui.learnMore)}</article>`).join("")}</div></div></section>
     <section class="section-padding section-bordered"><div class="container split-feature"><div><p class="eyebrow">${escapeHtml(ui.sectionEmployers)}</p><h2>${escapeHtml(ui.employersTitle)}</h2><p>${escapeHtml(ui.employersText)}</p>${link(href(locale, "dla-pracodawcow"), ui.learnMore, "btn-secondary")}</div><div><p class="eyebrow">B2B</p>${list(SERVICES.find(({ slug }) => slug === "dla-pracodawcow").extra[locale].split(". ").filter(Boolean))}</div></div></section>
     <section class="section-padding"><div class="container split-feature"><div><p class="eyebrow">${escapeHtml(ui.whyTag)}</p><h2>${escapeHtml(ui.whyTitle)}</h2></div><ul class="check-list">${ui.why.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div></section>
@@ -185,10 +188,10 @@ function homePage(locale) {
 function specialisedServiceContent(locale, slug) {
   const content = {
     "dla-pracodawcow": {
-      pl: ["Analiza prawa do pracy przed dopuszczeniem do pracy", "Dobór zezwolenia na pracę, oświadczenia lub zwolnienia", "Dokumenty pobytowe pracownika i terminy ich ważności", "Wsparcie przy pobycie czasowym i pracy", "Kontrola umów, wynagrodzenia i warunków wskazanych w zezwoleniu", "Obowiązki informacyjne i archiwizacja dokumentów", "Audyty teczek cudzoziemców i plan naprawczy", "Korespondencja oraz reprezentacja w granicach pełnomocnictwa", "Zarządzanie ryzykiem przy zmianie stanowiska, wymiaru czasu lub pracodawcy"],
-      ua: ["Перевірка права на працю до допуску працівника", "Вибір дозволу, заяви про доручення праці або звільнення", "Документи на перебування й строки їх чинності", "Підтримка у справах тимчасового перебування та праці", "Перевірка договорів, оплати й умов дозволу", "Інформаційні обов’язки та архівування документів", "Аудит особових справ іноземців і план виправлень", "Листування та представництво в межах довіреності", "Управління ризиком при зміні посади, часу праці чи роботодавця"],
-      ru: ["Проверка права на работу до допуска сотрудника", "Выбор разрешения, заявления о поручении работы или освобождения", "Документы на пребывание и сроки их действия", "Поддержка по временному пребыванию и работе", "Проверка договоров, оплаты и условий разрешения", "Уведомительные обязанности и хранение документов", "Аудит дел иностранных сотрудников и план исправлений", "Переписка и представительство в пределах доверенности", "Управление рисками при смене должности, времени работы или работодателя"],
-      en: ["Right-to-work checks before employment begins", "Selection of a work permit, declaration route or exemption", "Residence documents and expiry-date controls", "Temporary residence and work support", "Checks of contracts, pay and authorised employment terms", "Notification duties and document retention", "Foreign-employee file audits and remediation plans", "Correspondence and representation within a power of attorney", "Risk management for changes in role, hours or employer"]
+      pl: ["Analiza dokumentów wpływających na możliwość legalnego wykonywania pracy", "Dokumenty pobytowe pracownika i terminy ich ważności", "Wsparcie przy pobycie czasowym i pracy", "Kontrola umów, wynagrodzenia i spójności dokumentów", "Obowiązki informacyjne i archiwizacja dokumentów", "Audyty teczek cudzoziemców i plan naprawczy", "Korespondencja oraz reprezentacja w granicach pełnomocnictwa", "Zarządzanie ryzykiem przy zmianie stanowiska, wymiaru czasu lub pracodawcy"],
+      ua: ["Аналіз документів, що впливають на можливість легальної праці", "Документи на перебування й строки їх чинності", "Підтримка у справах тимчасового перебування та праці", "Перевірка договорів, оплати й узгодженості документів", "Інформаційні обов’язки та архівування документів", "Аудит особових справ іноземців і план виправлень", "Листування та представництво в межах довіреності", "Управління ризиком при зміні посади, часу праці чи роботодавця"],
+      ru: ["Анализ документов, влияющих на возможность легальной работы", "Документы на пребывание и сроки их действия", "Поддержка по временному пребыванию и работе", "Проверка договоров, оплаты и согласованности документов", "Уведомительные обязанности и хранение документов", "Аудит дел иностранных сотрудников и план исправлений", "Переписка и представительство в пределах доверенности", "Управление рисками при смене должности, времени работы или работодателя"],
+      en: ["Review of documents affecting the right to work lawfully", "Residence documents and expiry-date controls", "Temporary residence and work support", "Checks of contracts, pay and document consistency", "Notification duties and document retention", "Foreign-employee file audits and remediation plans", "Correspondence and representation within a power of attorney", "Risk management for changes in role, hours or employer"]
     },
     mos: {
       pl: ["Utworzenie i uwierzytelnienie indywidualnego konta", "Wypełnienie formularza i dołączenie dokumentów w MOS", "Kontrola podpisu elektronicznego, jeżeli jest wymagany", "Osobiste stawiennictwo przy odciskach palców i innych czynnościach osobistych", "Sprawdzenie, czy elektroniczne wysłanie kończy wymagany etap w konkretnej procedurze"],
@@ -244,7 +247,8 @@ function guidePage(locale, guide, index) {
   const title = titleFor(guide, locale);
   const slug = `poradniki/${guide.slug}`;
   const crumbs = breadcrumb(locale, [[ui.guides, href(locale, "poradniki")], [title, href(locale, slug)]]);
-  const relatedService = SERVICES[[9, 1, 1, 3, 11, 2, 6, 0][index]];
+  const relatedSlug = ["mos", "pobyt-czasowy-i-praca", "pobyt-czasowy-i-praca", "rezydent-dlugoterminowy-ue", "wezwanie-z-urzedu", "pobyt-staly", "legalizacja-zatrudnienia", "karta-pobytu-bydgoszcz"][index];
+  const relatedService = SERVICES.find(({ slug: serviceSlug }) => serviceSlug === relatedSlug);
   const meta = {
     pl: { contents: "Spis treści", facts: "Najważniejszy kontekst", author: "Autor", reviewer: "Weryfikacja redakcyjna" },
     ua: { contents: "Зміст", facts: "Найважливіший контекст", author: "Автор", reviewer: "Редакційна перевірка" },

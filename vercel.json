@@ -10,7 +10,11 @@
     { "source": "/about", "destination": "/pl/o-nas/", "permanent": true },
     { "source": "/contact", "destination": "/pl/kontakt/", "permanent": true },
     { "source": "/kontakt", "destination": "/pl/kontakt/", "permanent": true },
-    { "source": "/mos", "destination": "/pl/mos/", "permanent": true }
+    { "source": "/mos", "destination": "/pl/mos/", "permanent": true },
+    { "source": "/pl/zezwolenie-na-prace", "destination": "/pl/pobyt-czasowy-i-praca", "permanent": true },
+    { "source": "/ua/zezwolenie-na-prace", "destination": "/ua/pobyt-czasowy-i-praca", "permanent": true },
+    { "source": "/ru/zezwolenie-na-prace", "destination": "/ru/pobyt-czasowy-i-praca", "permanent": true },
+    { "source": "/en/zezwolenie-na-prace", "destination": "/en/pobyt-czasowy-i-praca", "permanent": true }
   ],
   "headers": [
     {
