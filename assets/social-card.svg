@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">B&amp;B Legal Advisory</title>
+  <desc id="description">Legalizacja pobytu i pracy w Polsce</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b0705"/><stop offset="1" stop-color="#26170d"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f7e7b4"/><stop offset=".55" stop-color="#c9a45e"/><stop offset="1" stop-color="#8e6f2b"/></linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1020" cy="100" r="330" fill="#c9a45e" opacity=".07"/>
+  <rect x="68" y="68" width="1064" height="494" rx="28" fill="none" stroke="#c9a45e" stroke-opacity=".35" stroke-width="2"/>
+  <text x="110" y="255" fill="url(#gold)" font-family="Arial, sans-serif" font-size="86" font-weight="700">B&amp;B LEGAL</text>
+  <text x="114" y="322" fill="#f4ebe1" font-family="Arial, sans-serif" font-size="32" font-weight="600" letter-spacing="7">ADVISORY</text>
+  <text x="114" y="420" fill="#d1c2b4" font-family="Arial, sans-serif" font-size="34">Legalizacja pobytu i pracy w Polsce</text>
+  <text x="114" y="480" fill="#c9a45e" font-family="Arial, sans-serif" font-size="24">Bydgoszcz · cała Polska · PL / UA / RU / EN</text>
+</svg>
