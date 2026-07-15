@@ -1,6 +1,6 @@
 /* ==========================================================================
-   B&B Legal — Rich Dark Oak Wood Texture & 3D Metallic Gold Design System
-   Aesthetics: Deep Oak Timber (#1B120B / dark_oak_texture.jpg) & 3D Brushed Gold
+   B&B Legal — Oak Wood Texture & Modern Dynamic Animations
+   Aesthetics: Rich Dark Oak Timber Grain + 3D Gold Shimmer Micro-Interactions
    ========================================================================== */
 
 :root {
@@ -16,9 +16,9 @@
 
   /* Deep Oak Wood Surfaces */
   --bg-oak-dark: #140D08;
-  --bg-card-wood: rgba(26, 17, 12, 0.88);
-  --bg-card-wood-hover: rgba(36, 24, 17, 0.95);
-  --bg-surface-glass: rgba(20, 13, 8, 0.75);
+  --bg-card-wood: rgba(24, 16, 11, 0.88);
+  --bg-card-wood-hover: rgba(36, 24, 16, 0.95);
+  --bg-surface-glass: rgba(18, 12, 7, 0.82);
 
   /* Typography Colors */
   --text-main: #F4EBE1;
@@ -28,10 +28,10 @@
 
   /* Borders & Shadows */
   --border-wood: rgba(212, 175, 55, 0.28);
-  --shadow-wood: 0 16px 40px rgba(0, 0, 0, 0.65);
+  --shadow-wood: 0 16px 40px rgba(0, 0, 0, 0.7);
   --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.4);
 
-  /* Typography Fonts */
+  /* Fonts */
   --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -44,10 +44,10 @@
   --radius-full: 9999px;
 
   --container-max: 1280px;
-  --transition-smooth: 220ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 260ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Reset & Dark Oak Background */
+/* Global Dark Oak Background Setup */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -75,11 +75,6 @@ a {
   text-decoration: none;
 }
 
-.reveal-scroll {
-  opacity: 1 !important;
-  transform: none !important;
-}
-
 .container {
   width: 100%;
   max-width: var(--container-max);
@@ -93,11 +88,75 @@ a {
 }
 
 /* ==========================================================================
-   Top Announcement Bar (Dark Oak Glass & Gold Details)
+   Keyframes & Dynamic Motion Animations
+   ========================================================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatGold {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+@keyframes goldShimmerSweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(212, 175, 55, 0.85);
+  }
+}
+
+@keyframes goldRotateBorder {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Scroll Reveal Classes */
+.reveal-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay staggered children */
+.reveal-scroll:nth-child(2) { transition-delay: 100ms; }
+.reveal-scroll:nth-child(3) { transition-delay: 200ms; }
+.reveal-scroll:nth-child(4) { transition-delay: 300ms; }
+
+/* ==========================================================================
+   Header Navigation with Glassmorphism
    ========================================================================== */
 .top-announcement {
-  background: rgba(12, 8, 5, 0.92);
-  backdrop-filter: blur(10px);
+  background: rgba(10, 6, 4, 0.92);
+  backdrop-filter: blur(12px);
   color: #FFFFFF;
   padding: 10px 0;
   font-size: 13px;
@@ -125,6 +184,7 @@ a {
   font-weight: 700;
   letter-spacing: 0.05em;
   white-space: nowrap;
+  animation: pulseGlow 3s infinite ease-in-out;
 }
 
 .pulse-dot {
@@ -153,6 +213,7 @@ a {
 
 .top-phone-link:hover {
   color: var(--text-gold) !important;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
 }
 
 .top-social-group {
@@ -177,18 +238,15 @@ a {
 .top-social-icon:hover {
   background: var(--gold-gradient);
   color: var(--bg-oak-dark);
-  transform: scale(1.1);
+  transform: translateY(-3px) scale(1.1);
   box-shadow: var(--gold-glow);
 }
 
-/* ==========================================================================
-   Main Header & Navigation (Dark Oak Glassmorphism)
-   ========================================================================== */
 .main-header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(18, 11, 7, 0.92);
+  background: rgba(14, 9, 6, 0.92);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--border-wood);
@@ -206,6 +264,11 @@ a {
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  transition: transform var(--transition-smooth);
+}
+
+.brand-logo:hover {
+  transform: scale(1.02);
 }
 
 .nav-menu {
@@ -239,7 +302,7 @@ a {
   height: 2.5px;
   background: var(--gold-gradient);
   border-radius: 2px;
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.8);
   transition: width var(--transition-smooth);
 }
 
@@ -275,6 +338,7 @@ a {
   color: var(--text-gold) !important;
   background: rgba(212, 175, 55, 0.15);
   box-shadow: var(--gold-glow);
+  transform: translateY(-2px);
 }
 
 .lang-control {
@@ -301,14 +365,15 @@ a {
 
 .lang-toggle-btn:hover {
   border-color: var(--gold-primary);
-  background: rgba(212, 175, 55, 0.15);
+  background: rgba(212, 175, 55, 0.18);
+  transform: translateY(-1px);
 }
 
 .lang-menu {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  background: rgba(20, 13, 8, 0.96);
+  background: rgba(18, 12, 7, 0.96);
   border: 1px solid var(--gold-border);
   backdrop-filter: blur(20px);
   border-radius: var(--radius-md);
@@ -318,6 +383,7 @@ a {
   list-style: none;
   display: none;
   z-index: 999 !important;
+  animation: fadeInUp 220ms ease-out forwards;
 }
 
 .lang-control.open .lang-menu {
@@ -338,11 +404,12 @@ a {
 }
 
 .lang-item:hover, .lang-item.active {
-  background: rgba(212, 175, 55, 0.2);
+  background: rgba(212, 175, 55, 0.22);
   color: var(--text-gold);
+  padding-left: 18px;
 }
 
-/* Metallic Gold Buttons */
+/* Shiny Animated Gold Buttons */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -350,6 +417,7 @@ a {
   gap: 8px;
   padding: 13px 28px;
   background: var(--gold-gradient);
+  background-size: 200% auto;
   color: #120C08;
   border-radius: var(--radius-md);
   font-weight: 800;
@@ -362,9 +430,9 @@ a {
 }
 
 .btn-primary:hover {
-  background: var(--gold-gradient-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
+  background-position: right center;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 35px rgba(212, 175, 55, 0.6);
 }
 
 .btn-secondary {
@@ -373,7 +441,7 @@ a {
   justify-content: center;
   gap: 8px;
   padding: 13px 26px;
-  background: rgba(26, 17, 12, 0.85);
+  background: rgba(24, 16, 11, 0.85);
   color: var(--text-gold);
   border: 1px solid var(--border-wood);
   border-radius: var(--radius-md);
@@ -387,8 +455,9 @@ a {
 
 .btn-secondary:hover {
   border-color: var(--gold-primary);
-  background: rgba(212, 175, 55, 0.15);
-  transform: translateY(-2px);
+  background: rgba(212, 175, 55, 0.18);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
 }
 
 .btn-emerald {
@@ -409,12 +478,12 @@ a {
 }
 
 .btn-emerald:hover {
-  background: var(--gold-gradient-hover);
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 35px rgba(212, 175, 55, 0.6);
 }
 
 /* ==========================================================================
-   Hero Section Layout over Dark Oak Wood
+   Hero Layout
    ========================================================================== */
 .hero-wrapper {
   padding-top: 72px;
@@ -440,6 +509,7 @@ a {
   font-size: 13.5px;
   font-weight: 700;
   margin-bottom: 24px;
+  animation: pulseGlow 4s infinite ease-in-out;
 }
 
 .hero-main-title {
@@ -450,13 +520,15 @@ a {
   color: #FFFFFF;
   margin-bottom: 24px;
   letter-spacing: -0.02em;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.85);
 }
 
 .hero-main-title span {
   background: var(--gold-gradient);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: goldShimmerSweep 6s infinite linear;
 }
 
 .hero-lead-text {
@@ -486,7 +558,7 @@ a {
   font-size: 28px;
   font-weight: 800;
   color: var(--text-gold);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 .stat-label {
@@ -495,14 +567,21 @@ a {
   font-weight: 600;
 }
 
-/* Glassmorphism Dark Oak Card */
+/* Floating Interactive Card Animation */
 .interactive-widget-card {
   background: var(--bg-card-wood);
   border: 1px solid var(--gold-border);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
   border-radius: var(--radius-xl);
   padding: 36px;
   box-shadow: var(--shadow-wood);
+  animation: floatGold 6s ease-in-out infinite;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.interactive-widget-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), var(--gold-glow);
 }
 
 .widget-header {
@@ -536,17 +615,24 @@ a {
 
 .calc-select, .calc-slider {
   width: 100%;
-  background: rgba(14, 9, 6, 0.9);
+  background: rgba(14, 9, 6, 0.95);
   border: 1px solid var(--border-wood);
   color: var(--text-gold);
   padding: 12px;
   border-radius: var(--radius-md);
   font-size: 14px;
   font-weight: 600;
+  transition: all var(--transition-smooth);
+}
+
+.calc-select:focus, .calc-slider:focus {
+  outline: none;
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
 }
 
 .calc-result-box {
-  background: rgba(212, 175, 55, 0.12);
+  background: rgba(212, 175, 55, 0.14);
   border: 1px solid var(--gold-border);
   border-radius: var(--radius-md);
   padding: 20px;
@@ -592,7 +678,7 @@ a {
   color: #FFFFFF;
   line-height: 1.2;
   margin-bottom: 16px;
-  text-shadow: 0 4px 16px rgba(0,0,0,0.8);
+  text-shadow: 0 4px 16px rgba(0,0,0,0.85);
 }
 
 .subtitle-desc {
@@ -609,7 +695,7 @@ a {
 }
 
 .filter-pill {
-  background: rgba(26, 17, 12, 0.85);
+  background: rgba(24, 16, 11, 0.85);
   border: 1px solid var(--border-wood);
   color: var(--text-muted);
   padding: 10px 24px;
@@ -624,6 +710,7 @@ a {
 .filter-pill:hover {
   border-color: var(--gold-primary);
   color: var(--text-gold);
+  transform: translateY(-2px);
 }
 
 .filter-pill.active {
@@ -639,30 +726,47 @@ a {
   gap: 28px;
 }
 
-/* Glassmorphism Dark Oak Cards */
+/* Glassmorphism Dark Oak Cards with 3D Hover Animations */
 .light-card {
   background: var(--bg-card-wood);
   border: 1px solid var(--border-wood);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(16px);
   border-radius: var(--radius-lg);
   padding: 34px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: var(--shadow-wood);
-  transition: all var(--transition-smooth);
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.light-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.08), transparent);
+  transition: left 700ms ease;
+}
+
+.light-card:hover::before {
+  left: 100%;
 }
 
 .light-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px) scale(1.015);
   border-color: var(--gold-primary);
   background: var(--bg-card-wood-hover);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), var(--gold-glow);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(212, 175, 55, 0.35);
 }
 
 .card-icon-box {
-  width: 54px;
-  height: 54px;
+  width: 56px;
+  height: 56px;
   border-radius: var(--radius-md);
   background: rgba(212, 175, 55, 0.15);
   border: 1px solid var(--gold-border);
@@ -671,6 +775,13 @@ a {
   align-items: center;
   justify-content: center;
   margin-bottom: 22px;
+  transition: transform var(--transition-smooth), background var(--transition-smooth);
+}
+
+.light-card:hover .card-icon-box {
+  transform: rotate(-4deg) scale(1.1);
+  background: var(--gold-gradient);
+  color: #120C08;
 }
 
 .card-headline {
@@ -724,20 +835,23 @@ a {
   font-weight: 700;
   font-size: 14px;
   color: var(--text-gold);
+  transition: gap var(--transition-smooth);
 }
 
 .action-link:hover {
-  gap: 12px;
+  gap: 14px;
 }
 
 .mos-feature-wrapper {
-  background: rgba(18, 11, 7, 0.95);
+  background: rgba(18, 12, 7, 0.95);
   border: 1px solid var(--gold-border);
   backdrop-filter: blur(20px);
   border-radius: var(--radius-xl);
   padding: 56px 48px;
   box-shadow: var(--shadow-wood);
   margin-top: 56px;
+  position: relative;
+  overflow: hidden;
 }
 
 .mos-layout {
@@ -764,6 +878,13 @@ a {
   font-size: 13.5px;
   font-weight: 600;
   color: var(--text-main);
+  transition: all var(--transition-smooth);
+}
+
+.mos-item-check:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: var(--gold-primary);
+  transform: translateY(-2px);
 }
 
 .timeline-connected-grid {
@@ -776,7 +897,7 @@ a {
 .step-card-box {
   background: var(--bg-card-wood);
   border: 1px solid var(--border-wood);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
   border-radius: var(--radius-lg);
   padding: 30px 22px;
   box-shadow: var(--shadow-wood);
@@ -785,8 +906,8 @@ a {
 
 .step-card-box:hover {
   border-color: var(--gold-primary);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), var(--gold-glow);
 }
 
 .step-badge {
@@ -826,10 +947,11 @@ a {
 .faq-card-item {
   background: var(--bg-card-wood);
   border: 1px solid var(--border-wood);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
   border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-smooth), box-shadow var(--transition-smooth);
 }
 
 .faq-card-item.active {
@@ -857,7 +979,7 @@ a {
   width: 20px;
   height: 20px;
   color: var(--gold-primary);
-  transition: transform var(--transition-smooth);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .faq-card-item.active .faq-chevron {
@@ -867,7 +989,7 @@ a {
 .faq-content-panel {
   max-height: 0;
   overflow: hidden;
-  transition: max-height var(--transition-smooth), padding var(--transition-smooth);
+  transition: max-height 350ms cubic-bezier(0.16, 1, 0.3, 1), padding 350ms cubic-bezier(0.16, 1, 0.3, 1);
   padding: 0 26px;
   font-size: 15px;
   color: var(--text-muted);
@@ -885,7 +1007,7 @@ a {
 }
 
 .contact-card-dark {
-  background: rgba(18, 11, 7, 0.95);
+  background: rgba(18, 12, 7, 0.95);
   border: 1px solid var(--gold-border);
   backdrop-filter: blur(20px);
   border-radius: var(--radius-xl);
@@ -930,7 +1052,7 @@ a {
 .form-card-light {
   background: var(--bg-card-wood);
   border: 1px solid var(--border-wood);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
   border-radius: var(--radius-xl);
   padding: 44px;
   box-shadow: var(--shadow-wood);
@@ -957,7 +1079,7 @@ a {
 .form-control-input, .form-control-select, .form-control-textarea {
   width: 100%;
   padding: 13px 18px;
-  background: rgba(14, 9, 6, 0.85);
+  background: rgba(14, 9, 6, 0.95);
   border: 1px solid var(--border-wood);
   border-radius: var(--radius-md);
   font-size: 14.5px;
@@ -967,9 +1089,9 @@ a {
 
 .form-control-input:focus, .form-control-select:focus, .form-control-textarea:focus {
   outline: none;
-  background: rgba(20, 13, 8, 0.95);
+  background: rgba(20, 13, 8, 0.98);
   border-color: var(--gold-primary);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
 }
 
 .form-control-textarea {
@@ -988,18 +1110,18 @@ a {
 
 .form-alert-banner.success {
   display: flex;
-  background: rgba(212, 175, 55, 0.15);
+  background: rgba(212, 175, 55, 0.18);
   border: 1px solid var(--gold-primary);
   color: var(--text-gold);
 }
 
-/* Bottom Reference Card Component over Dark Oak */
+/* Bottom Reference Card Component */
 .bottom-contact-wrapper {
   padding-bottom: 64px;
 }
 
 .bottom-contact-card {
-  background: rgba(18, 11, 7, 0.94);
+  background: rgba(18, 12, 7, 0.95);
   border: 1px solid var(--gold-border);
   backdrop-filter: blur(20px);
   border-radius: var(--radius-xl);
@@ -1085,7 +1207,7 @@ a {
   background: var(--gold-gradient);
   border-color: var(--gold-primary);
   color: #120C08;
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.08);
   box-shadow: var(--gold-glow);
 }
 
@@ -1099,7 +1221,7 @@ a {
 
 /* Footer Section */
 .site-footer {
-  background: rgba(10, 6, 4, 0.96);
+  background: rgba(10, 6, 4, 0.97);
   border-top: 1px solid var(--gold-border);
   color: #FFFFFF;
   padding-top: 72px;
