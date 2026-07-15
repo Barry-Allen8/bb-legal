@@ -1,39 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="240" height="60" fill="none">
-  <!-- Brand Symbol Icon -->
-  <g transform="translate(10, 6)">
-    <!-- Base Shield Backdrop Gradient -->
-    <defs>
-      <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#0A1128" />
-        <stop offset="100%" stop-color="#1C2541" />
-      </linearGradient>
-      <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#0066FF" />
-        <stop offset="100%" stop-color="#10B981" />
-      </linearGradient>
-      <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-        <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#0066FF" flood-opacity="0.25"/>
-      </filter>
-    </defs>
-    
-    <!-- Shield Outer Shell -->
-    <path d="M24 2 C34 2, 42 7, 44 14 C44 28, 34 40, 24 46 C14 40, 4 28, 4 14 C6 7, 14 2, 24 2 Z" 
-          fill="url(#shieldGrad)" stroke="url(#accentGrad)" stroke-width="2.5" filter="url(#shadow)"/>
-          
-    <!-- Stylized 'K' & Eagle Wing Emblem inside Shield -->
-    <path d="M16 12 V34" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"/>
-    <path d="M16 23 L28 12" stroke="url(#accentGrad)" stroke-width="3.5" stroke-linecap="round"/>
-    <path d="M20 20 L30 33" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round"/>
-    
-    <!-- Legal Star / Security Dot -->
-    <circle cx="24" cy="8" r="2" fill="#10B981" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 310 60" role="img" aria-labelledby="logoTitle logoDesc">
+  <title id="logoTitle">B&amp;B Legal Advisory</title>
+  <desc id="logoDesc">Legalizacja pobytu i doradztwo imigracyjne</desc>
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F9EECA"/>
+      <stop offset=".35" stop-color="#D4AF37"/>
+      <stop offset=".7" stop-color="#C5A059"/>
+      <stop offset="1" stop-color="#8E6F2B"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="1" dy="2" stdDeviation="1.5" flood-opacity=".75"/>
+    </filter>
+  </defs>
+  <g fill="url(#gold)" filter="url(#shadow)" transform="translate(4 2)">
+    <path d="M12 4h26v6h-6V7H18v3h-6z"/>
+    <path d="M10 13h11c3.5 0 5 1.8 5 4 0 1.8-1.5 3.2-4 3.5 3 .5 4.5 2.3 4.5 4.7 0 2.6-2 4.3-6 4.3H10zm4 3v3.5h6c1.5 0 2.5-.7 2.5-1.7s-1-1.8-2.5-1.8zm0 6.5v4h6.5c1.5 0 2.5-.7 2.5-2s-1-2-2.5-2z"/>
+    <path d="M27 13h11c3.5 0 5 1.8 5 4 0 1.8-1.5 3.2-4 3.5 3 .5 4.5 2.3 4.5 4.7 0 2.6-2 4.3-6 4.3H27zm4 3v3.5h6c1.5 0 2.5-.7 2.5-1.7s-1-1.8-2.5-1.8zm0 6.5v4h6.5c2.5 0 2.5-.7 2.5-2s-1-2-2.5-2z"/>
+    <path d="M16 38c4-4 9-10 19-20-2 6-7 14-14 20z"/>
   </g>
-
-  <!-- Brand Typography -->
-  <text x="66" y="32" font-family="'Plus Jakarta Sans', 'Inter', system-ui, sans-serif" font-weight="800" font-size="22" letter-spacing="1.5" fill="#0A1128">
-    KRISNAR
-  </text>
-  <text x="67" y="45" font-family="'Inter', system-ui, sans-serif" font-weight="600" font-size="9.5" letter-spacing="2" fill="#0066FF">
-    LEGAL &amp; MIGRATION ADVISORY
-  </text>
+  <path d="M18 32v4c0 10 11 14 11 14s11-4 11-14v-4" fill="none" stroke="url(#gold)" stroke-width="3" stroke-linecap="round"/>
+  <text x="56" y="28" fill="url(#gold)" font-family="Plus Jakarta Sans,Inter,system-ui,sans-serif" font-size="22" font-weight="800" letter-spacing="1.5">B&amp;B LEGAL</text>
+  <text x="57" y="43" fill="#BFAEA0" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="700" letter-spacing="1.2">LEGALIZACJA POBYTU &amp; DORADZTWO IMIGRACYJNE</text>
 </svg>
