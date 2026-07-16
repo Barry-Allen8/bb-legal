@@ -151,9 +151,7 @@ h1, h2, h3 { font-family: var(--heading); line-height: 1.2; }
 }
 
 .header-phone-secondary {
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 600;
+  color: #fff;
 }
 
 .lang-control { position: relative; }
