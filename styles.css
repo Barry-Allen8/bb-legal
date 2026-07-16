@@ -136,12 +136,24 @@ h1, h2, h3 { font-family: var(--heading); line-height: 1.2; }
   gap: 12px;
 }
 
+.header-phone-stack {
+  display: grid;
+  gap: 2px;
+  justify-items: end;
+}
+
 .header-phone {
   color: #fff;
   font-size: 13px;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
+}
+
+.header-phone-secondary {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .lang-control { position: relative; }
@@ -616,7 +628,7 @@ h1, h2, h3 { font-family: var(--heading); line-height: 1.2; }
 [hidden] { display: none !important; }
 
 @media (max-width: 1100px) {
-  .header-phone { display: none; }
+  .header-phone-stack { display: none; }
   .main-nav { gap: 14px; }
   .brand-logo img { width: 200px; }
 }

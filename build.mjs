@@ -58,7 +58,7 @@ function header(locale, slug = "", active = "") {
       ${serviceMenu(locale)}
       ${navItems.slice(1).map(([key, url, label]) => link(url, label, `nav-item-link${active === key ? " active" : ""}`)).join("")}
     </nav>
-    <div class="header-actions"><a class="header-phone" href="tel:${SITE.phoneHref}">${SITE.phone}</a>${languageMenu(locale, slug)}<button class="mobile-nav-toggle" type="button" aria-label="${escapeHtml(ui.openMenu)}" data-open-label="${escapeHtml(ui.openMenu)}" data-close-label="${escapeHtml(ui.closeMenu)}" aria-controls="main-nav" aria-expanded="false"><span></span><span></span><span></span></button></div>
+    <div class="header-actions"><div class="header-phone-stack"><a class="header-phone" href="tel:${SITE.phoneHref}">${SITE.phone}</a><a class="header-phone header-phone-secondary" href="tel:${SITE.phoneAltHref}">${SITE.phoneAlt}</a></div>${languageMenu(locale, slug)}<button class="mobile-nav-toggle" type="button" aria-label="${escapeHtml(ui.openMenu)}" data-open-label="${escapeHtml(ui.openMenu)}" data-close-label="${escapeHtml(ui.closeMenu)}" aria-controls="main-nav" aria-expanded="false"><span></span><span></span><span></span></button></div>
   </div></header>`;
 }
 
@@ -66,7 +66,7 @@ function footer(locale) {
   const ui = UI[locale];
   const serviceLinks = SERVICES.slice(0, 7).map((service) => link(href(locale, service.slug), titleFor(service, locale))).join("");
   return `<footer class="site-footer"><div class="container footer-grid">
-    <div class="footer-brand"><img src="/assets/logo.svg" width="230" height="50" alt="${siteNameHtml}"><p>${escapeHtml(ui.footerLead)}</p><address>${link(`tel:${SITE.phoneHref}`, SITE.phone)}${link(`mailto:${SITE.email}`, SITE.email)}<span>${SITE.address}</span></address></div>
+    <div class="footer-brand"><img src="/assets/logo.svg" width="230" height="50" alt="${siteNameHtml}"><p>${escapeHtml(ui.footerLead)}</p><address>${link(`tel:${SITE.phoneHref}`, SITE.phone)}${link(`tel:${SITE.phoneAltHref}`, `${SITE.phoneAlt} · Viber / WhatsApp`)}${link(`mailto:${SITE.email}`, SITE.email)}<span>${SITE.address}</span></address></div>
     <div><h2>${escapeHtml(ui.sitemap)}</h2><nav class="footer-links" aria-label="${escapeHtml(ui.sitemap)}">${serviceLinks}${link(href(locale, "dla-pracodawcow"), ui.employers)}${link(href(locale, "mos"), "MOS")}${link(href(locale, "karta-cukr"), titleFor(SERVICES.find(({ slug }) => slug === "karta-cukr"), locale))}</nav></div>
     <div><h2>${escapeHtml(ui.legal)}</h2><nav class="footer-links">${link(href(locale, "poradniki"), ui.guides)}${link(href(locale, "faq"), ui.faq)}${link(href(locale, "kontakt"), ui.contact)}${link(href(locale, "polityka-prywatnosci"), ui.privacy)}${link(href(locale, "regulamin"), ui.terms)}${link(href(locale, "cookies"), ui.cookies)}</nav></div>
     <p class="footer-bottom">© 2026 ${siteNameHtml} · ${escapeHtml(ui.updated)}: ${SITE.updated}</p>
