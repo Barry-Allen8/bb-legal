@@ -1,14 +1,14 @@
 export const SITE = {
   origin: "https://bb-legal.dev",
   name: "B&B Legal Advisory",
-  email: "krisnar.biznes@gmail.com",
+  email: "kontakt@bb-legal.dev",
   phone: "+48 537 890 776",
   phoneHref: "+48537890776",
   phoneAlt: "+48 733 264 543",
   phoneAltHref: "+48733264543",
   address: "Gimnazjalna 2A/213, 85-007 Bydgoszcz",
-  updated: "2026-07-15",
-  formEndpoint: process.env.FORMSPREE_ENDPOINT || "https://formspree.io/f/xvovzyba"
+  updated: "2026-07-17",
+  formEndpoint: process.env.RESEND_ENDPOINT || "/api/contact"
 };
 
 export const LOCALES = {

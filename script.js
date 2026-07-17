@@ -92,13 +92,25 @@ document.addEventListener("DOMContentLoaded", () => {
       status.textContent = "";
       status.dataset.state = "loading";
       try {
-        const response = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
-        if (!response.ok) throw new Error(`Form submission failed: ${response.status}`);
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+        const response = await fetch(form.action, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(result.error || `Form submission failed: ${response.status}`);
+        }
         form.reset();
         status.textContent = status.dataset.success;
         status.dataset.state = "success";
       } catch (error) {
-        status.textContent = status.dataset.error;
+        status.textContent = error.message || status.dataset.error;
         status.dataset.state = "error";
       } finally {
         submit.disabled = false;
