@@ -777,7 +777,12 @@ h1, h2, h3 { font-family: var(--heading); line-height: 1.2; }
 .footer-brand address { display: grid; gap: 7px; margin-top: 20px; color: var(--muted); font-size: 13px; font-style: normal; }
 .footer-brand address a { color: var(--gold-light); text-decoration: none; }
 .footer-links { display: grid; align-content: start; }
-.footer-bottom { grid-column: 1 / -1; margin: 8px 0 0; padding-top: 24px; color: var(--subtle); font-size: 12px; border-top: 1px solid rgba(197, 160, 89, 0.14); }
+.header-social { display: flex; align-items: center; gap: 8px; margin-inline: 4px; }
+.header-social-icon { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; color: var(--gold-light); background: rgba(197, 160, 89, 0.08); border: 1px solid var(--border); border-radius: var(--radius-sm); transition: all var(--transition); }
+.header-social-icon:hover { color: var(--oak); background: var(--gold-gradient); border-color: var(--gold); transform: translateY(-2px); }
+.footer-social-links { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
+.footer-social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; color: var(--text); background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; text-decoration: none; transition: all var(--transition); }
+.footer-social-btn:hover { color: var(--gold-light); border-color: var(--gold); background: rgba(197, 160, 89, 0.12); transform: translateY(-2px); }
 
 .hp-field { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
 .form-status { min-height: 26px; margin: 6px 0; color: var(--muted); font-size: 13px; }
