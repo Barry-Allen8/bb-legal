@@ -54,8 +54,7 @@ export default async function handler(req, res) {
     }
 
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'B&B Legal <onboarding@resend.dev>';
-    const primaryTo = process.env.RESEND_TO_EMAIL || 'kontakt@bb-legal.dev';
-    const fallbackTo = 'joi777@ukr.net';
+    const toEmail = process.env.RESEND_TO_EMAIL || 'joi777@ukr.net';
 
     const htmlContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #c5a059; border-radius: 12px; background-color: #140d08; color: #f4ebe1;">
@@ -76,32 +75,22 @@ export default async function handler(req, res) {
       </div>
     `;
 
-    async function sendEmailTo(recipient) {
-      return await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${resendApiKey}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          from: fromEmail,
-          to: [recipient],
-          reply_to: email,
-          subject: `[Formularz] Nowe zgłoszenie: ${service} - ${name}`,
-          html: htmlContent
-        })
-      });
-    }
+    const resendResponse = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${resendApiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: fromEmail,
+        to: [toEmail],
+        reply_to: email,
+        subject: `[Formularz] Nowe zgłoszenie: ${service} - ${name}`,
+        html: htmlContent
+      })
+    });
 
-    let resendResponse = await sendEmailTo(primaryTo);
-    let resendData = await resendResponse.json();
-
-    // If testing restriction error occurs (unverified domain sending to third-party email), fallback to account owner email
-    if (!resendResponse.ok && resendData && resendData.message && resendData.message.includes('testing emails')) {
-      console.warn(`Resend restriction: Cannot send to ${primaryTo} using test domain. Retrying with fallback ${fallbackTo}`);
-      resendResponse = await sendEmailTo(fallbackTo);
-      resendData = await resendResponse.json();
-    }
+    const resendData = await resendResponse.json();
 
     if (!resendResponse.ok) {
       console.error('Resend API error:', resendData);
