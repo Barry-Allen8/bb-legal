@@ -6,6 +6,17 @@ import { GUIDES, LOCALES, SERVICES, SITE, SOURCE_LINKS, UI } from "./site-data.m
 const root = fileURLToPath(new URL(".", import.meta.url));
 const out = join(root, "dist");
 
+const GA_MEASUREMENT_ID = "G-B7MZ6GM28X";
+const GA_SNIPPET = `<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '${GA_MEASUREMENT_ID}');
+</script>`;
+
 const escapeHtml = (value = "") => String(value).replace(/[&<>'"]/g, (character) => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;"
 }[character]));
@@ -89,6 +100,7 @@ function layout({ locale, slug = "", title, description, active, main, schema = 
   return `<!doctype html>
 <html lang="${LOCALES[locale].html}">
 <head>
+  ${GA_SNIPPET}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(pageTitle(title))}</title>
@@ -347,7 +359,7 @@ await writeFile(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?
 await writeFile(join(out, "manifest.webmanifest"), JSON.stringify({ name: SITE.name, short_name: "B&B Legal", start_url: "/pl/", display: "standalone", background_color: "#140d08", theme_color: "#140d08", icons: [{ src: "/assets/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any maskable" }] }, null, 2));
 
 const notFound = Object.fromEntries(Object.keys(LOCALES).map((locale) => [locale, { title: UI[locale].notFound, text: UI[locale].notFoundText, action: UI[locale].backHome }]));
-await writeFile(join(out, "404.html"), `<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>404 | ${siteNameHtml}</title><link rel="icon" href="/assets/favicon.svg"><link rel="stylesheet" href="/styles.css"><script>document.addEventListener('DOMContentLoaded',()=>{const l=location.pathname.split('/')[1];const d=${json(notFound)}[l]||${json(notFound)}.pl;document.documentElement.lang=l==='ua'?'uk':l||'pl';document.querySelector('h1').textContent=d.title;document.querySelector('p').textContent=d.text;const a=document.querySelector('a');a.textContent=d.action;a.href='/'+(d===${json(notFound)}.pl?'pl':l)+'/';});</script></head><body><main class="error-page"><img src="/assets/logo.svg" width="250" height="54" alt="${siteNameHtml}"><p class="error-code">404</p><h1>Nie znaleziono strony</h1><p>Adres mógł się zmienić.</p><a class="btn-primary" href="/pl/">Strona główna</a></main></body></html>`);
-await writeFile(join(out, "index.html"), `<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=/pl/"><link rel="canonical" href="${abs("pl")}"><title>${siteNameHtml}</title></head><body><a href="/pl/">${siteNameHtml}</a></body></html>`);
+await writeFile(join(out, "404.html"), `<!doctype html><html lang="pl"><head>${GA_SNIPPET}<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>404 | ${siteNameHtml}</title><link rel="icon" href="/assets/favicon.svg"><link rel="stylesheet" href="/styles.css"><script>document.addEventListener('DOMContentLoaded',()=>{const l=location.pathname.split('/')[1];const d=${json(notFound)}[l]||${json(notFound)}.pl;document.documentElement.lang=l==='ua'?'uk':l||'pl';document.querySelector('h1').textContent=d.title;document.querySelector('p').textContent=d.text;const a=document.querySelector('a');a.textContent=d.action;a.href='/'+(d===${json(notFound)}.pl?'pl':l)+'/';});</script></head><body><main class="error-page"><img src="/assets/logo.svg" width="250" height="54" alt="${siteNameHtml}"><p class="error-code">404</p><h1>Nie znaleziono strony</h1><p>Adres mógł się zmienić.</p><a class="btn-primary" href="/pl/">Strona główna</a></main></body></html>`);
+await writeFile(join(out, "index.html"), `<!doctype html><html lang="pl"><head>${GA_SNIPPET}<meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=/pl/"><link rel="canonical" href="${abs("pl")}"><title>${siteNameHtml}</title></head><body><a href="/pl/">${siteNameHtml}</a></body></html>`);
 
 console.log(`Built ${urls.length} indexed pages in ${out}`);
