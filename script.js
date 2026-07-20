@@ -103,14 +103,14 @@ document.addEventListener("DOMContentLoaded", () => {
           body: JSON.stringify(payload)
         });
         const result = await response.json().catch(() => ({}));
-        if (!response.ok) {
-          throw new Error(result.error || `Form submission failed: ${response.status}`);
+        if (!response.ok || !result.success) {
+          throw new Error(result.message || result.error || status.dataset.error);
         }
         form.reset();
         status.textContent = status.dataset.success;
         status.dataset.state = "success";
       } catch (error) {
-        status.textContent = error.message || status.dataset.error;
+        status.textContent = status.dataset.error;
         status.dataset.state = "error";
       } finally {
         submit.disabled = false;

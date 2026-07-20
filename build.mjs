@@ -159,6 +159,8 @@ function contactForm(locale) {
   const ui = UI[locale];
   return `<form class="contact-form" action="${SITE.formEndpoint}" method="post" data-contact-form novalidate>
     <h2>${escapeHtml(ui.formTitle)}</h2><div class="form-grid">
+      <input type="hidden" name="access_key" value="29f59de7-c4a0-4fb7-b22f-3964574dfa44">
+      <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
       <label><span>${escapeHtml(ui.name)} *</span><input name="name" autocomplete="name" minlength="2" required></label>
       <label><span>${escapeHtml(ui.phone)} *</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" minlength="7" required></label>
       <label><span>${escapeHtml(ui.email)} *</span><input type="email" name="email" autocomplete="email" required></label>
@@ -166,7 +168,6 @@ function contactForm(locale) {
       <label><span>${escapeHtml(ui.preferredLanguage)} *</span><select name="preferred_language" autocomplete="language" required>${Object.entries(LOCALES).map(([code, data]) => `<option value="${code}"${code === locale ? " selected" : ""}>${escapeHtml(data.name)}</option>`).join("")}</select></label>
     </div>
     <label><span>${escapeHtml(ui.message)} *</span><textarea name="message" rows="5" minlength="20" required></textarea></label>
-    <div class="hp-field" aria-hidden="true"><label>Website<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
     <input type="hidden" name="page" value="${href(locale, "kontakt")}">
     <label class="check-row"><input type="checkbox" name="privacy_acknowledgement" required><span>${escapeHtml(ui.consent)}</span></label>
     <button class="btn-primary" type="submit" data-idle-label="${escapeHtml(ui.submit)}" data-sending-label="${escapeHtml(ui.sending)}">${escapeHtml(ui.submit)}</button>
@@ -308,12 +309,12 @@ function simplePage(locale, type) {
   if (["privacy", "terms", "cookies"].includes(type)) {
     const policy = {
       pl: {
-        privacy: [["Administrator", `${SITE.name}, ${SITE.address}. Kontakt: ${SITE.email}.`], ["Cel i podstawa", "Dane z formularza służą odpowiedzi na zapytanie, działaniom przed zawarciem umowy i — po uzgodnieniu — realizacji usługi."], ["Zakres i odbiorcy", "Przetwarzamy dane podane dobrowolnie. Formularz obsługuje Formspree; dane mogą też przetwarzać dostawcy hostingu i poczty na podstawie odpowiednich umów."], ["Okres i prawa", "Dane przechowujemy przez czas potrzebny do odpowiedzi, realizacji usługi i obowiązków prawnych. Możesz żądać dostępu, sprostowania, usunięcia, ograniczenia lub wnieść sprzeciw — zależnie od podstawy."], ["Skarga", "Przysługuje prawo skargi do Prezesa Urzędu Ochrony Danych Osobowych."]],
+        privacy: [["Administrator", `${SITE.name}, ${SITE.address}. Kontakt: ${SITE.email}.`], ["Cel i podstawa", "Dane z formularza służą odpowiedzi na zapytanie, działaniom przed zawarciem umowy i — po uzgodnieniu — realizacji usługi."], ["Zakres i odbiorcy", "Przetwarzamy dane podane dobrowolnie. Formularz obsługuje Web3Forms; dane mogą też przetwarzać dostawcy hostingu i poczty na podstawie odpowiednich umów."], ["Okres i prawa", "Dane przechowujemy przez czas potrzebny do odpowiedzi, realizacji usługi i obowiązków prawnych. Możesz żądać dostępu, sprostowania, usunięcia, ograniczenia lub wnieść sprzeciw — zależnie od podstawy."], ["Skarga", "Przysługuje prawo skargi do Prezesa Urzędu Ochrony Danych Osobowych."]],
         terms: [["Charakter informacji", ui.disclaimer], ["Nawiązanie współpracy", ui.formNotice], ["Zakres usługi", "Zakres, wynagrodzenie, terminy i odpowiedzialność ustalamy indywidualnie przed rozpoczęciem płatnej usługi."], ["Decyzja organu", ui.noGuarantee]],
-        cookies: [["Zakres", "Strona nie używa reklamowych ani analitycznych cookies. Może używać wyłącznie technicznych mechanizmów hostingu i zabezpieczeń."], ["Ustawienia", "Możesz ograniczyć cookies w przeglądarce; może to wpłynąć na działanie funkcji."], ["Usługi zewnętrzne", "Wysłanie formularza powoduje połączenie z Formspree zgodnie z zasadami tej usługi."]]
+        cookies: [["Zakres", "Strona nie używa reklamowych ani analitycznych cookies. Może używać wyłącznie technicznych mechanizmów hostingu i zabezpieczeń."], ["Ustawienia", "Możesz ograniczyć cookies w przeglądarce; może to wpłynąć na działanie funkcji."], ["Usługi zewnętrzne", "Wysłanie formularza powoduje połączenie z Web3Forms zgodnie z zasadami tej usługi."]]
       },
       ua: {
-        privacy: [["Контролер даних", `${SITE.name}, ${SITE.address}. Контакт: ${SITE.email}.`], ["Мета й підстава", "Дані з форми використовуються для відповіді, дій до укладення договору та, після погодження, надання послуги."], ["Обсяг і одержувачі", "Ми обробляємо добровільно надані дані. Форму технічно обслуговує Formspree; дані також можуть обробляти постачальники хостингу й пошти на підставі відповідних договорів."], ["Строк і права", "Дані зберігаються протягом часу, потрібного для відповіді, послуги та правових обов’язків. Залежно від підстави ви можете вимагати доступу, виправлення, видалення, обмеження або заперечити."], ["Скарга", "Ви можете подати скаргу Голові Управління захисту персональних даних Польщі."]],
+        privacy: [["Контролер даних", `${SITE.name}, ${SITE.address}. Контакт: ${SITE.email}.`], ["Мета й підстава", "Дані з форми використовуються для відповіді, дій до укладення договору та, після погодження, надання послуги."], ["Обсяг і одержувачі", "Ми обробляємо добровільно надані дані. Форму технічно обслуговує Web3Forms; дані також можуть обробляти постачальники хостингу й пошти на підставі відповідних договорів."], ["Строк і права", "Дані зберігаються протягом часу, потрібного для відповіді, послуги та правових обов’язків. Залежно від підстави ви можете вимагати доступу, виправлення, видалення, обмеження або заперечити."], ["Скарга", "Ви можете подати скаргу Голові Управління захисту персональних даних Польщі."]],
         terms: [["Характер інформації", ui.disclaimer], ["Початок співпраці", ui.formNotice], ["Обсяг послуги", "Обсяг, оплату, строки й відповідальність погоджуємо індивідуально до початку платної послуги."], ["Рішення органу", ui.noGuarantee]],
         cookies: [["Обсяг", "Сайт не використовує рекламні чи аналітичні cookies. Можливі лише технічні механізми хостингу та безпеки."], ["Налаштування", "Ви можете обмежити cookies у браузері; це може вплинути на окремі функції."], ["Зовнішні послуги", "Надсилання форми створює з’єднання з Formspree відповідно до правил цієї послуги."]]
       },

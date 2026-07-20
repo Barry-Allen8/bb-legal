@@ -8,7 +8,7 @@ export const SITE = {
   phoneAltHref: "+48733264543",
   address: "Gimnazjalna 2A/213, 85-007 Bydgoszcz",
   updated: "2026-07-17",
-  formEndpoint: process.env.RESEND_ENDPOINT || "/api/contact",
+  formEndpoint: "https://api.web3forms.com/submit",
   instagram: "https://www.instagram.com/bb_legal_company/",
   facebook: "https://www.facebook.com/profile.php?id=61555740862786"
 };
