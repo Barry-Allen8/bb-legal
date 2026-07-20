@@ -17,6 +17,23 @@ const GA_SNIPPET = `<!-- Google tag (gtag.js) -->
   gtag('config', '${GA_MEASUREMENT_ID}');
 </script>`;
 
+const META_PIXEL_ID = "1273004129221570";
+const META_PIXEL_SNIPPET = `<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '${META_PIXEL_ID}');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->`;
+const META_PIXEL_NOSCRIPT = `<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1" alt="" /></noscript>`;
+
 const escapeHtml = (value = "") => String(value).replace(/[&<>'"]/g, (character) => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;"
 }[character]));
@@ -101,6 +118,7 @@ function layout({ locale, slug = "", title, description, active, main, schema = 
 <html lang="${LOCALES[locale].html}">
 <head>
   ${GA_SNIPPET}
+  ${META_PIXEL_SNIPPET}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(pageTitle(title))}</title>
@@ -126,7 +144,7 @@ function layout({ locale, slug = "", title, description, active, main, schema = 
   <script type="application/ld+json">${json({ "@context": "https://schema.org", "@graph": graph })}</script>
   <script src="/script.js" defer></script>
 </head>
-<body data-locale="${locale}">${header(locale, slug, active)}<main id="main">${main}</main>${footer(locale)}</body>
+<body data-locale="${locale}">${META_PIXEL_NOSCRIPT}${header(locale, slug, active)}<main id="main">${main}</main>${footer(locale)}</body>
 </html>`;
 }
 
@@ -360,7 +378,7 @@ await writeFile(join(out, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?
 await writeFile(join(out, "manifest.webmanifest"), JSON.stringify({ name: SITE.name, short_name: "B&B Legal", start_url: "/pl/", display: "standalone", background_color: "#140d08", theme_color: "#140d08", icons: [{ src: "/assets/favicon.svg", sizes: "any", type: "image/svg+xml", purpose: "any maskable" }] }, null, 2));
 
 const notFound = Object.fromEntries(Object.keys(LOCALES).map((locale) => [locale, { title: UI[locale].notFound, text: UI[locale].notFoundText, action: UI[locale].backHome }]));
-await writeFile(join(out, "404.html"), `<!doctype html><html lang="pl"><head>${GA_SNIPPET}<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>404 | ${siteNameHtml}</title><link rel="icon" href="/assets/favicon.svg"><link rel="stylesheet" href="/styles.css"><script>document.addEventListener('DOMContentLoaded',()=>{const l=location.pathname.split('/')[1];const d=${json(notFound)}[l]||${json(notFound)}.pl;document.documentElement.lang=l==='ua'?'uk':l||'pl';document.querySelector('h1').textContent=d.title;document.querySelector('p').textContent=d.text;const a=document.querySelector('a');a.textContent=d.action;a.href='/'+(d===${json(notFound)}.pl?'pl':l)+'/';});</script></head><body><main class="error-page"><img src="/assets/logo.svg" width="250" height="54" alt="${siteNameHtml}"><p class="error-code">404</p><h1>Nie znaleziono strony</h1><p>Adres mógł się zmienić.</p><a class="btn-primary" href="/pl/">Strona główna</a></main></body></html>`);
-await writeFile(join(out, "index.html"), `<!doctype html><html lang="pl"><head>${GA_SNIPPET}<meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=/pl/"><link rel="canonical" href="${abs("pl")}"><title>${siteNameHtml}</title></head><body><a href="/pl/">${siteNameHtml}</a></body></html>`);
+await writeFile(join(out, "404.html"), `<!doctype html><html lang="pl"><head>${GA_SNIPPET}${META_PIXEL_SNIPPET}<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>404 | ${siteNameHtml}</title><link rel="icon" href="/assets/favicon.svg"><link rel="stylesheet" href="/styles.css"><script>document.addEventListener('DOMContentLoaded',()=>{const l=location.pathname.split('/')[1];const d=${json(notFound)}[l]||${json(notFound)}.pl;document.documentElement.lang=l==='ua'?'uk':l||'pl';document.querySelector('h1').textContent=d.title;document.querySelector('p').textContent=d.text;const a=document.querySelector('a');a.textContent=d.action;a.href='/'+(d===${json(notFound)}.pl?'pl':l)+'/';});</script></head><body>${META_PIXEL_NOSCRIPT}<main class="error-page"><img src="/assets/logo.svg" width="250" height="54" alt="${siteNameHtml}"><p class="error-code">404</p><h1>Nie znaleziono strony</h1><p>Adres mógł się zmienić.</p><a class="btn-primary" href="/pl/">Strona główna</a></main></body></html>`);
+await writeFile(join(out, "index.html"), `<!doctype html><html lang="pl"><head>${GA_SNIPPET}${META_PIXEL_SNIPPET}<meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=/pl/"><link rel="canonical" href="${abs("pl")}"><title>${siteNameHtml}</title></head><body>${META_PIXEL_NOSCRIPT}<a href="/pl/">${siteNameHtml}</a></body></html>`);
 
 console.log(`Built ${urls.length} indexed pages in ${out}`);
