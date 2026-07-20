@@ -28,7 +28,7 @@ if (htmlFiles.length !== expectedHtml) errors.push(`Expected ${expectedHtml} HTM
 
 for (const file of htmlFiles) {
   const html = await readFile(file, "utf8");
-  if (html.includes(["krisnar.biznes", "gmail.com"].join("@"))) errors.push(`${file}: old email remains`);
+  if (html.includes("kontakt@bb-legal.dev")) errors.push(`${file}: old email remains`);
   if (!file.endsWith("/dist/index.html") && !file.endsWith("/dist/404.html")) {
     for (const token of ["<title>", "meta name=\"description\"", "rel=\"canonical\"", "hreflang=\"x-default\"", "application/ld+json", "/assets/favicon.svg"]) {
       if (!html.includes(token)) errors.push(`${file}: missing ${token}`);
