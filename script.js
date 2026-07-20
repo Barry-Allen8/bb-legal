@@ -106,6 +106,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!response.ok || !result.success) {
           throw new Error(result.message || result.error || status.dataset.error);
         }
+        if (typeof fbq === "function") {
+          fbq("track", "Lead");
+        }
         form.reset();
         status.textContent = status.dataset.success;
         status.dataset.state = "success";
