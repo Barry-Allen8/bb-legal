@@ -838,32 +838,34 @@ h1, h2, h3 { font-family: var(--heading); line-height: 1.2; }
   z-index: 999;
   width: 60px;
   height: 60px;
-  background-color: #25d366;
-  color: #ffffff;
+  background: var(--gold-gradient);
+  color: #120c08;
+  border: 1px solid rgba(247, 231, 180, 0.4);
   border-radius: 9999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  box-shadow: 0 6px 20px rgba(197, 160, 89, 0.35);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   animation: wa-pulse 2s infinite;
 }
 
 .whatsapp-floating-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
-  color: #ffffff;
+  transform: scale(1.08);
+  box-shadow: 0 8px 28px rgba(197, 160, 89, 0.6);
+  color: #120c08;
 }
 
 @keyframes wa-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.6);
   }
   70% {
-    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    box-shadow: 0 0 0 15px rgba(197, 160, 89, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    box-shadow: 0 0 0 0 rgba(197, 160, 89, 0);
   }
 }
+
 
