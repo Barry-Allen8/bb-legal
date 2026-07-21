@@ -29,8 +29,10 @@ if (htmlFiles.length !== expectedHtml) errors.push(`Expected ${expectedHtml} HTM
 for (const file of htmlFiles) {
   const html = await readFile(file, "utf8");
   if (html.includes("kontakt@bb-legal.dev")) errors.push(`${file}: old email remains`);
-  if (!html.includes("fbq('init', '1273004129221570')")) errors.push(`${file}: missing Meta Pixel script init`);
-  if (!html.includes("https://www.facebook.com/tr?id=1273004129221570")) errors.push(`${file}: missing Meta Pixel noscript fallback`);
+  if (!html.includes("fbq('init', '1273004129221570')")) errors.push(`${file}: missing Meta Pixel 1 script init`);
+  if (!html.includes("fbq('init', '1539556817945012')")) errors.push(`${file}: missing Meta Pixel 2 script init`);
+  if (!html.includes("https://www.facebook.com/tr?id=1273004129221570")) errors.push(`${file}: missing Meta Pixel 1 noscript fallback`);
+  if (!html.includes("https://www.facebook.com/tr?id=1539556817945012")) errors.push(`${file}: missing Meta Pixel 2 noscript fallback`);
   if (!file.endsWith("/dist/index.html") && !file.endsWith("/dist/404.html")) {
     for (const token of ["<title>", "meta name=\"description\"", "rel=\"canonical\"", "hreflang=\"x-default\"", "application/ld+json", "/assets/favicon.svg"]) {
       if (!html.includes(token)) errors.push(`${file}: missing ${token}`);

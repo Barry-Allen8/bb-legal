@@ -107,7 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
           throw new Error(result.message || result.error || status.dataset.error);
         }
         if (typeof fbq === "function") {
-          fbq("track", "Lead");
+          fbq("trackSingle", "1273004129221570", "Lead");
+          fbq("trackSingle", "1539556817945012", "Lead");
         }
         form.reset();
         status.textContent = status.dataset.success;

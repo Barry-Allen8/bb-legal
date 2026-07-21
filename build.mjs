@@ -18,6 +18,7 @@ const GA_SNIPPET = `<!-- Google tag (gtag.js) -->
 </script>`;
 
 const META_PIXEL_ID = "1273004129221570";
+const META_PIXEL_PARTNER_ID = "1539556817945012";
 const META_PIXEL_SNIPPET = `<!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -29,10 +30,11 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '${META_PIXEL_ID}');
+fbq('init', '${META_PIXEL_PARTNER_ID}');
 fbq('track', 'PageView');
 </script>
 <!-- End Meta Pixel Code -->`;
-const META_PIXEL_NOSCRIPT = `<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1" alt="" /></noscript>`;
+const META_PIXEL_NOSCRIPT = `<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1" alt="" /><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${META_PIXEL_PARTNER_ID}&ev=PageView&noscript=1" alt="" /></noscript>`;
 
 const escapeHtml = (value = "") => String(value).replace(/[&<>'"]/g, (character) => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;"
