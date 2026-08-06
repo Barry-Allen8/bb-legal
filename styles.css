@@ -327,14 +327,33 @@ h1, h2, h3 { font-family: var(--heading); line-height: 1.2; }
 }
 
 .qualification-card,
-.contact-card,
-.contact-form {
+.contact-card {
   padding: clamp(28px, 4vw, 42px);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   backdrop-filter: blur(14px);
+}
+
+.contact-form {
+  padding: clamp(28px, 4vw, 42px);
+  background: var(--surface);
+  border: 1px solid rgba(197, 160, 89, 0.35);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(14px);
+  animation: contact-form-pulse 4s ease-in-out infinite;
+}
+
+@keyframes contact-form-pulse {
+  0%, 100% {
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), 0 0 18px 2px rgba(197, 160, 89, 0.18);
+    border-color: rgba(197, 160, 89, 0.3);
+  }
+  50% {
+    box-shadow: 0 14px 40px -5px rgba(0, 0, 0, 0.6), 0 0 32px 6px rgba(197, 160, 89, 0.38);
+    border-color: rgba(197, 160, 89, 0.6);
+  }
 }
 
 .qualification-card h2,
@@ -360,6 +379,29 @@ h1, h2, h3 { font-family: var(--heading); line-height: 1.2; }
   background: rgba(8, 5, 3, 0.7);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.qualification-card select:hover,
+.contact-form input:hover,
+.contact-form select:hover,
+.contact-form textarea:hover {
+  border-color: rgba(197, 160, 89, 0.5);
+}
+
+.qualification-card select:focus,
+.qualification-card select:focus-visible,
+.contact-form input:focus,
+.contact-form input:focus-visible,
+.contact-form select:focus,
+.contact-form select:focus-visible,
+.contact-form textarea:focus,
+.contact-form textarea:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  border-color: var(--gold-light);
+  box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.3), 0 0 12px rgba(197, 160, 89, 0.2);
 }
 
 .qualification-card select,
@@ -676,7 +718,7 @@ h1, h2, h3 { font-family: var(--heading); line-height: 1.2; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation: none !important; }
 }
 
 /* Multi-page navigation and content */
