@@ -662,10 +662,6 @@ h1, h2, h3 { font-family: var(--heading); line-height: 1.2; }
   .section-padding { padding: 70px 0; }
   .nav-bar { min-height: 72px; }
   .brand-logo img { width: 50px; height: 50px; }
-  .brand-logo { gap: 7px; }
-  .brand-wordmark { display: grid; gap: 0; }
-  .brand-wordmark strong { font-size: 16px; letter-spacing: .8px; }
-  .brand-wordmark small, .header-social { display: none; }
   .main-nav { top: 72px; }
   .lang-toggle-btn { min-width: 56px; padding-inline: 8px; }
   .hero-wrapper { padding: 64px 0 76px; }

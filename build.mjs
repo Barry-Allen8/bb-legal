@@ -82,7 +82,7 @@ function header(locale, slug = "", active = "") {
   ];
   return `<a class="skip-link" href="#main">${escapeHtml(ui.skip)}</a>
   <header class="main-header"><div class="container nav-bar">
-    <a class="brand-logo" href="${href(locale)}" aria-label="${escapeHtml(`${SITE.name} — ${ui.home}`)}"><img src="/assets/bb-logo.png" width="64" height="64" alt=""><span class="brand-wordmark"><strong>B&amp;B Legal</strong><small>Legalizacja pobytu &amp; doradztwo imigracyjne</small></span></a>
+    <a class="brand-logo" href="${href(locale)}" aria-label="${escapeHtml(`${SITE.name} — ${ui.home}`)}"><img src="/assets/bb-logo.png" width="64" height="64" alt="${siteNameHtml}"></a>
     <nav class="main-nav" id="main-nav" aria-label="${escapeHtml(ui.nav)}">
       ${link(navItems[0][1], navItems[0][2], `nav-item-link${active === navItems[0][0] ? " active" : ""}`)}
       ${serviceMenu(locale)}
