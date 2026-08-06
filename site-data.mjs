@@ -1,6 +1,6 @@
 export const SITE = {
   origin: "https://bb-legal.dev",
-  name: "B&B Legal Advisory",
+  name: "B&B Legal",
   email: "krisnar.biznes@gmail.com",
   phone: "+48 537 890 776",
   phoneHref: "+48537890776",
