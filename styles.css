@@ -376,6 +376,7 @@ h1, h2, h3 { font-family: var(--heading); line-height: 1.2; }
   width: 100%;
   padding: 12px 14px;
   color: #fff;
+  font-size: 16px;
   background: rgba(8, 5, 3, 0.7);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
